@@ -27,6 +27,10 @@ def extract_price(query):
 
 # Hàm gợi ý sản phẩm dựa trên độ tương đồng văn bản và lọc theo mức giá
 def suggest_products(query, products, top_n=3):
+    print(greet_or_bye(query))
+    if greet_or_bye(query):
+        print(greet_or_bye(query))
+        return {"text": greet_or_bye(query)}
     # Trích xuất giá từ câu truy vấn
     price = extract_price(query)
     if price:
@@ -78,3 +82,22 @@ def suggest_products(query, products, top_n=3):
         "text": text,
         "recommendations": recommendations
     }
+
+# Hàm nhận diện câu chào và tạm biệt
+def greet_or_bye(query):
+    greetings = ["chào", "xin chào", "hello", "hi", "chào bạn"]
+    farewells = ["tạm biệt", "bye", "hẹn gặp lại", "chúc bạn một ngày tốt", "chào tạm biệt"]
+
+    print( query)
+    
+    # Kiểm tra câu chào
+    for greeting in greetings:
+        if greeting in query:
+            return "Chào bạn! Bạn cần tôi giúp gì không?"
+
+    # Kiểm tra câu tạm biệt
+    for farewell in farewells:
+        if farewell in query:
+            return "Tạm biệt! Hẹn gặp lại bạn sau nhé!"
+    
+    return None  # Trả về None nếu không nhận diện được câu chào hoặc tạm biệt
