@@ -88,6 +88,7 @@ def greet_or_bye(query):
     greetings = ["chào", "xin chào", "hello", "hi", "chào bạn"]
     farewells = ["tạm biệt", "bye", "hẹn gặp lại", "chúc bạn một ngày tốt", "chào tạm biệt"]
 
+    query = query.lower()
     print( query)
     
     # Kiểm tra câu chào
