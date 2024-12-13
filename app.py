@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS  # Import flask_cors
-from recommend_nlp import suggest_products, get_products
+from recommend_nlp import process_query, get_products
 
 app = Flask(__name__)
 CORS(app)  # Thêm CORS vào ứng dụng Flask
@@ -16,7 +16,7 @@ def recommend():
         return jsonify({"error": "Query is required"}), 400
     
     products = get_products()
-    recommendations = suggest_products(query, products, top_n)
+    recommendations = process_query(query, products)
     return jsonify(recommendations)
 
 # Get all products
