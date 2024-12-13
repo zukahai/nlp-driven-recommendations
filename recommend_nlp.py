@@ -5,10 +5,14 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
 # Danh sách thông tin sản phẩm - kính mắt với trường giá
+
 product = []
-url = "http://127.0.0.1:8000/api/product"
-response = requests.get(url)
-products = response.json()
+
+def get_products():
+    url = "http://127.0.0.1:8000/api/product"
+    response = requests.get(url)
+    products = response.json()
+    return products
 
 # Hàm tiền xử lý văn bản
 def preprocess_text(text):
@@ -27,10 +31,13 @@ def extract_price(query):
 
 # Hàm gợi ý sản phẩm dựa trên độ tương đồng văn bản và lọc theo mức giá
 def suggest_products(query, products, top_n=3):
+    products = get_products()
     print(greet_or_bye(query))
     if greet_or_bye(query):
         print(greet_or_bye(query))
         return {"text": greet_or_bye(query)}
+    if (len(products) == 0):
+        return {"text": "Không có sản phẩm nào trong cơ sở dữ liệu."}
     # Trích xuất giá từ câu truy vấn
     price = extract_price(query)
     if price:
@@ -85,7 +92,7 @@ def suggest_products(query, products, top_n=3):
 
 # Hàm nhận diện câu chào và tạm biệt
 def greet_or_bye(query):
-    greetings = ["chào", "xin chào", "hello", "hi", "chào bạn"]
+    greetings = ["chào", "xin chào", "hello", "chào bạn"]
     farewells = ["tạm biệt", "bye", "hẹn gặp lại", "chúc bạn một ngày tốt", "chào tạm biệt"]
 
     query = query.lower()
