@@ -24,7 +24,7 @@ def preprocess_text(text):
 # Hàm để trích xuất giá từ câu truy vấn
 def extract_price(query):
     # Sử dụng regex để tìm kiếm giá trong câu truy vấn (giả sử giá có dạng số với 6 chữ số)
-    price_match = re.findall(r'\d{5,}', query)
+    price_match = re.findall(r'\d{4,}', query)
     if price_match:
         return int(price_match[0])  # Trả về giá đầu tiên tìm thấy (nếu có)
     return None  # Nếu không tìm thấy giá
